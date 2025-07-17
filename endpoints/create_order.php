@@ -53,6 +53,9 @@ error_log("Requête URI: " . $_SERVER['REQUEST_URI']);
 $headers = getallheaders();
 $apiKey = $headers['X-Api-Key'] ?? $headers['X-API-KEY'] ?? null;
 error_log("API Key reçue: " . ($apiKey ? substr($apiKey, 0, 5) . '...' : 'Non fournie'));
+error_log("Remote IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+error_log("User-Agent: " . ($_SERVER['HTTP_USER_AGENT'] ?? 'unknown'));
+error_log("En-têtes complets: " . json_encode($headers));
 
 // Validation de la clé API
 validateApiKey();
