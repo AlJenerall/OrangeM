@@ -80,6 +80,7 @@ if (!$order) {
     http_response_code(404);
     exit('Commande non trouvée');
 }
+error_log("IPN URL enregistrée pour cette commande: " . ($order['ipn_url'] ?? 'inconnue'));
 
 if ($amount && $order['amount_gnf'] != $amount) {
     error_log("⚠️ Montant incohérent: attendu {$order['amount_gnf']}, reçu $amount");
@@ -101,3 +102,12 @@ switch ($status) {
         error_log("ℹ️ Statut non reconnu ($status) pour notif_token=$notif_token, laissé inchangé");
         break;
 }
+
+if (!empty($order['ipn_url'])) {
+    $dhruResp = sendIpnDetailsToDhruFusion($order['ipn_url'], $order['order_id']);
+    error_log("IPN relay vers Dhru: code={$dhruResp['status_code']} body={$dhruResp['response']}");
+}
+
+http_response_code(200);
+echo 'OK';
+error_log("Réponse 'OK' renvoyée à Orange Money.");
