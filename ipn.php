@@ -101,9 +101,3 @@ switch ($status) {
         error_log("ℹ️ Statut non reconnu ($status) pour notif_token=$notif_token, laissé inchangé");
         break;
 }
-if (isset($data['custom_id']) && !isset($data['notif_token'])) {
-    error_log("ℹ️ Payload initial détecté (pré-notification), ignoré. Données: " . json_encode($data));
-    http_response_code(200);
-    echo 'OK';
-    exit;
-}

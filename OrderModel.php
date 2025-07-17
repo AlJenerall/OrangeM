@@ -103,4 +103,22 @@ class OrderModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Vérifie qu'un notif_token existe dans la base
+     */
+    public function verifyNotifToken($notifToken) {
+        $stmt = $this->conn->prepare('SELECT COUNT(*) FROM orders WHERE notif_token = ?');
+        $stmt->execute([$notifToken]);
+        return $stmt->fetchColumn() > 0;
+    }
+
+    /**
+     * Récupère une commande via son notif_token
+     */
+    public function getOrderByNotifToken($notifToken) {
+        $stmt = $this->conn->prepare('SELECT * FROM orders WHERE notif_token = ? LIMIT 1');
+        $stmt->execute([$notifToken]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
