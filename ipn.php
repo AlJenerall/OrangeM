@@ -103,6 +103,11 @@ switch ($status) {
         break;
 }
 
+if (!empty($order['ipn_url'])) {
+    $dhruResp = sendIpnDetailsToDhruFusion($order['ipn_url'], $order['order_id']);
+    error_log("IPN relay vers Dhru: code={$dhruResp['status_code']} body={$dhruResp['response']}");
+}
+
 http_response_code(200);
 echo 'OK';
 error_log("Réponse 'OK' renvoyée à Orange Money.");
