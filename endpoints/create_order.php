@@ -53,6 +53,16 @@ error_log("Requête URI: " . $_SERVER['REQUEST_URI']);
 $headers = getallheaders();
 $apiKey = $headers['X-Api-Key'] ?? $headers['X-API-KEY'] ?? null;
 error_log("API Key reçue: " . ($apiKey ? substr($apiKey, 0, 5) . '...' : 'Non fournie'));
+error_log("Remote IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+error_log("User-Agent: " . ($_SERVER['HTTP_USER_AGENT'] ?? 'unknown'));
+$maskedHeaders = $headers;
+if (isset($maskedHeaders['Authorization'])) {
+    $maskedHeaders['Authorization'] = substr($maskedHeaders['Authorization'], 0, 10) . '...';
+}
+if (isset($maskedHeaders['X-Api-Key'])) {
+    $maskedHeaders['X-Api-Key'] = substr($maskedHeaders['X-Api-Key'], 0, 5) . '...';
+}
+error_log("En-têtes complets: " . json_encode($maskedHeaders));
 
 // Validation de la clé API
 validateApiKey();
@@ -199,7 +209,7 @@ try {
     ];
     error_log("=== ✅ Réponse envoyée à Dhru ===\n" . json_encode($responseData));
 
-    output('success', 'Commande créée avec succès.', $responseData, 201);
+    output('success', 'Commande créée avec succès.', $responseData, 200);
 
 } catch (Exception $e) {
     error_log("Erreur fatale: " . $e->getMessage());
