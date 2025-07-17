@@ -15,7 +15,7 @@ require_once __DIR__ . '/../OrderModel.php';
 require_once __DIR__ . '/../OrangeMoneyPayment.php';
 
 // Définir les constantes
-define('USD_TO_GNF_RATE', 8650);
+define('USD_TO_GNF_RATE', 1000);
 define('MIN_AMOUNT_GNF', 100);
 define('MAX_AMOUNT_GNF', 5000000);
 define('MAX_INPUT_SIZE', 10240);
@@ -175,7 +175,7 @@ try {
         }
     }
 
-    $paymentUrl = $payment['checkout_url'] ?? null;
+    $paymentUrl = $payment['payment_url'] ?? $payment['checkout_url'] ?? null; // Prendre payment_url ou checkout_url
     if (empty($paymentUrl)) {
         output('error', 'Lien de paiement Orange Money non reçu.', ['error_code' => 'NO_PAYMENT_URL'], 500);
     }
@@ -190,12 +190,12 @@ try {
 
     error_log("Commande DB mise à jour avec les tokens Orange Money.");
 
-    // Réponse avec order_id pour que DHRU charge Payment Checkout SendBox
+    // Réponse avec la vraie checkout_url de Orange Money
     $responseData = [
         'status' => 'success',
         'order_id' => $orderId,
         'next_action' => 'display_checkout',
-        'checkout_url' => '/Payment Checkout SendBox.html?order_id=' . $orderId // Ajuste le chemin si nécessaire
+        'checkout_url' => $paymentUrl
     ];
     error_log("=== ✅ Réponse envoyée à Dhru ===\n" . json_encode($responseData));
 
