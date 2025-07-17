@@ -1,0 +1,41 @@
+[17-Jul-2025 10:12:31 America/Boise] --- create_order.php: Début du traitement ---
+[17-Jul-2025 10:12:31 America/Boise] Requête HTTP_METHOD: POST
+[17-Jul-2025 10:12:31 America/Boise] Requête URI: /orange_money/?action=create_order
+[17-Jul-2025 10:12:31 America/Boise] API Key reçue: 8a35d...
+[17-Jul-2025 10:12:31 America/Boise] Raw input (payload): {"amount":"1.00","currency_code":"USD","description":"#INV-17-07-2025-21647","customer_name":"lims","customer_email":"mdalimoubah98@gmail.com","custom_id":21647,"ipn_url":"https:\/\/gsmeasytech.dhrufusion.in\/api\/system\/v1\/ipn?gateway_id=bb2492c5-db6d-41e7-b000-e08972f711c7","success_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=bd103190-7be1-4c10-a1bf-cf1acc1f9815&payment=success","fail_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=bd103190-7be1-4c10-a1bf-cf1acc1f9815&payment=fail"}
+[17-Jul-2025 10:12:31 America/Boise] ✅ Table 'orders' vérifiée/créée avec succès
+[17-Jul-2025 10:12:31 America/Boise] Commande créée en DB avec ID: 9
+[17-Jul-2025 10:12:31 America/Boise] Données envoyées à Orange Money: {"amount":1000,"currency_code":"GNF","custom_id":"21647_768751480","description":"#INV-17-07-2025-21647","customer_name":"lims","customer_email":"mdalimoubah98@gmail.com","success_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=bd103190-7be1-4c10-a1bf-cf1acc1f9815&payment=success","fail_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=bd103190-7be1-4c10-a1bf-cf1acc1f9815&payment=fail"}
+[17-Jul-2025 10:12:32 America/Boise] === ORANGE MONEY NOUVELLE APPLICATION ===
+[17-Jul-2025 10:12:32 America/Boise] URL: https://api.orange.com/orange-money-webpay/dev/v1/webpayment
+[17-Jul-2025 10:12:32 America/Boise] Merchant Key: 268671bb
+[17-Jul-2025 10:12:32 America/Boise] Token: eyJ0eXAiOi...
+[17-Jul-2025 10:12:32 America/Boise] Order ID unique: 21647_768751480
+[17-Jul-2025 10:12:32 America/Boise] Payload: {"merchant_key":"268671bb","currency":"OUV","order_id":"21647_768751480","amount":1000,"return_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=bd103190-7be1-4c10-a1bf-cf1acc1f9815&payment=success","cancel_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=bd103190-7be1-4c10-a1bf-cf1acc1f9815&payment=fail","notif_url":"https:\/\/tty.yqp.mybluehost.me\/orange_money\/ipn.php","lang":"fr","reference":"21647_768751480"}
+[17-Jul-2025 10:12:32 America/Boise] Code HTTP: 201
+[17-Jul-2025 10:12:32 America/Boise] Réponse Orange Money: {"status":201,"message":"OK","pay_token":"v1dup73ertxhizv3c0sfvwf1z0wxyqkljxlwz2sas1m8wqoxfsemgneqahy7qnso","payment_url":"https://mpayment.orange-money.com/sx/mpayment/abstract/v1dup73ertxhizv3c0sfvwf1z0wxyqkljxlwz2sas1m8wqoxfsemgneqahy7qnso","notif_token":"cct4tzopgwzfktppomf5dmg1yu3fzyci"}
+[17-Jul-2025 10:12:32 America/Boise] Réponse Orange Money (tentative 1): Array
+(
+    [pay_token] => v1dup73ertxhizv3c0sfvwf1z0wxyqkljxlwz2sas1m8wqoxfsemgneqahy7qnso
+    [notif_token] => cct4tzopgwzfktppomf5dmg1yu3fzyci
+    [order_id] => 21647_768751480
+    [checkout_url] => https://mpayment.orange-money.com/sx/mpayment/abstract/v1dup73ertxhizv3c0sfvwf1z0wxyqkljxlwz2sas1m8wqoxfsemgneqahy7qnso
+)
+
+[17-Jul-2025 10:12:32 America/Boise] Commande DB mise à jour avec les tokens Orange Money.
+[17-Jul-2025 10:12:32 America/Boise] === ✅ Réponse envoyée à Dhru ===
+{"status":"success","order_id":"9","next_action":"display_checkout","checkout_url":"https:\/\/mpayment.orange-money.com\/sx\/mpayment\/abstract\/v1dup73ertxhizv3c0sfvwf1z0wxyqkljxlwz2sas1m8wqoxfsemgneqahy7qnso"}
+[17-Jul-2025 10:12:33 America/Boise] --- create_order.php: Début du traitement ---
+[17-Jul-2025 10:12:33 America/Boise] Requête HTTP_METHOD: POST
+[17-Jul-2025 10:12:33 America/Boise] Requête URI: /orange_money/?action=create_order
+[17-Jul-2025 10:12:33 America/Boise] API Key reçue: 8a35d...
+[17-Jul-2025 10:12:33 America/Boise] Raw input (payload): {"amount":"1.00","currency_code":"USD","description":"#INV-17-07-2025-21646","customer_name":"lims","customer_email":"mdalimoubah98@gmail.com","custom_id":21646,"ipn_url":"https:\/\/gsmeasytech.dhrufusion.in\/api\/system\/v1\/ipn?gateway_id=bb2492c5-db6d-41e7-b000-e08972f711c7","success_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=639c80f5-99b7-49a0-89df-838df99fc7b1&payment=success","fail_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=639c80f5-99b7-49a0-89df-838df99fc7b1&payment=fail"}
+[17-Jul-2025 10:12:33 America/Boise] ✅ Table 'orders' vérifiée/créée avec succès
+[17-Jul-2025 10:12:33 America/Boise] Commande déjà existante détectée : renvoi URL existante
+[17-Jul-2025 10:12:34 America/Boise] --- create_order.php: Début du traitement ---
+[17-Jul-2025 10:12:34 America/Boise] Requête HTTP_METHOD: POST
+[17-Jul-2025 10:12:34 America/Boise] Requête URI: /orange_money/?action=create_order
+[17-Jul-2025 10:12:34 America/Boise] API Key reçue: 8a35d...
+[17-Jul-2025 10:12:34 America/Boise] Raw input (payload): {"amount":"1.00","currency_code":"USD","description":"#INV-17-07-2025-21646","customer_name":"lims","customer_email":"mdalimoubah98@gmail.com","custom_id":21646,"ipn_url":"https:\/\/gsmeasytech.dhrufusion.in\/api\/system\/v1\/ipn?gateway_id=bb2492c5-db6d-41e7-b000-e08972f711c7","success_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=639c80f5-99b7-49a0-89df-838df99fc7b1&payment=success","fail_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=639c80f5-99b7-49a0-89df-838df99fc7b1&payment=fail"}
+[17-Jul-2025 10:12:34 America/Boise] ✅ Table 'orders' vérifiée/créée avec succès
+[17-Jul-2025 10:12:34 America/Boise] Commande déjà existante détectée : renvoi URL existante

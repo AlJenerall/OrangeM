@@ -1,0 +1,21 @@
+[17-Jul-2025 10:15:12 America/Boise] ===== 📥 RÉCEPTION IPN ORANGE MONEY =====
+[17-Jul-2025 10:15:12 America/Boise] Méthode HTTP: POST
+[17-Jul-2025 10:15:12 America/Boise] IP appelante: 195.25.125.198
+[17-Jul-2025 10:15:12 America/Boise] 📦 Raw input: {"status":"FAILED","notif_token":"cct4tzopgwzfktppomf5dmg1yu3fzyci","txnid":""}
+[17-Jul-2025 10:15:12 America/Boise] ✅ Données IPN reçues: status=FAILED | notif_token=cct4tzopgwzfktppomf5dmg1yu3fzyci | txnid= | amount=
+[17-Jul-2025 10:15:12 America/Boise] ✅ Table 'orders' vérifiée/créée avec succès
+[17-Jul-2025 10:15:12 America/Boise] ❌ Paiement échoué pour notif_token=cct4tzopgwzfktppomf5dmg1yu3fzyci | txnid=
+[17-Jul-2025 10:23:02 America/Boise] ===== 📥 RÉCEPTION IPN ORANGE MONEY =====
+[17-Jul-2025 10:23:02 America/Boise] Méthode HTTP: POST
+[17-Jul-2025 10:23:02 America/Boise] IP appelante: 195.25.125.198
+[17-Jul-2025 10:23:02 America/Boise] 📦 Raw input: {"status":"FAILED","notif_token":"x8ftx8hgqiducdsjuxuj1srkdzzg267k","txnid":""}
+[17-Jul-2025 10:23:02 America/Boise] ✅ Données IPN reçues: status=FAILED | notif_token=x8ftx8hgqiducdsjuxuj1srkdzzg267k | txnid= | amount=
+[17-Jul-2025 10:23:02 America/Boise] ✅ Table 'orders' vérifiée/créée avec succès
+[17-Jul-2025 10:23:02 America/Boise] ❌ Paiement échoué pour notif_token=x8ftx8hgqiducdsjuxuj1srkdzzg267k | txnid=
+[17-Jul-2025 10:23:02 America/Boise] ===== 📥 RÉCEPTION IPN ORANGE MONEY =====
+[17-Jul-2025 10:23:02 America/Boise] Méthode HTTP: POST
+[17-Jul-2025 10:23:02 America/Boise] IP appelante: 195.25.125.198
+[17-Jul-2025 10:23:02 America/Boise] 📦 Raw input: {"status":"FAILED","notif_token":"zwdjnzau7dpmou9s72nvtqvatwarajnz","txnid":""}
+[17-Jul-2025 10:23:02 America/Boise] ✅ Données IPN reçues: status=FAILED | notif_token=zwdjnzau7dpmou9s72nvtqvatwarajnz | txnid= | amount=
+[17-Jul-2025 10:23:02 America/Boise] ✅ Table 'orders' vérifiée/créée avec succès
+[17-Jul-2025 10:23:02 America/Boise] ❌ Paiement échoué pour notif_token=zwdjnzau7dpmou9s72nvtqvatwarajnz | txnid=
