@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Money Checkout - Paiement Sécurisé</title>
+
+    <style>
+        /* Variables CSS personnalisables */
+        :root {
+            --om-orange: #ff6b35;
+            --om-orange-dark: #e55a2b;
+            --om-orange-light: #fff5f0;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --background: #f9fafb;
+            --card-background: #ffffff;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Reset et base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Container principal */
+        .checkout-container {
+            background: var(--card-background);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* En-tête */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--om-orange), var(--om-orange-dark));
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Résumé de commande */
+        .order-summary {
+            background: var(--om-orange-light);
+            padding: 24px;
+            border-radius: var(--border-radius);
+            margin: 24px 0;
+            border-left: 4px solid var(--om-orange);
+        }
+
+        .order-summary h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+            font-size: 15px;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--om-orange);
+            padding-top: 16px;
+            margin-top: 8px;
+            border-top: 2px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .order-item .label {
+            color: var(--text-secondary);
+        }
+
+        .order-item .value {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* Section de paiement */
+        .payment-section {
+            margin: 32px 0;
+        }
+
+        .payment-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: var(--card-background);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .payment-method.selected {
+            border-color: var(--om-orange);
+            background: var(--om-orange-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .payment-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--om-orange), var(--om-orange-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .payment-details h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .payment-details p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Formulaire de paiement */
+        .payment-form {
+            margin-top: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: var(--card-background);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--om-orange);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        /* Bouton de paiement */
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--om-orange), var(--om-orange-dark));
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .checkout-btn:active {
+            transform: translateY(0);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* États de chargement */
+        .loading-spinner {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Section de sécurité */
+        .security-section {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .security-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .security-badges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+            gap: 8px;
+        }
+
+        .security-badge::before {
+            content: "🔒";
+            font-size: 16px;
+        }
+
+        /* États d'erreur et succès */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: var(--error-color);
+            border: 1px solid #fecaca;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            color: var(--success-color);
+            border: 1px solid #bbf7d0;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .checkout-container {
+                padding: 24px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .security-badges {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-method {
+                padding: 16px;
+            }
+
+            .payment-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 18px;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checkout-container {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        /* États masqués */
+        .hidden {
+            display: none;
+        }
+
+        /* État de chargement principal */
+        .loading-state {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .loading-state.active ~ .checkout-content {
+            display: none;
+        }
+
+        .countdown {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--om-orange);
+            margin: 16px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--om-orange), var(--om-orange-dark));
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <!-- État de chargement -->
+        <div class="loading-state hidden" id="loadingState">
+            <div class="logo">OM</div>
+            <h2 class="title">🔄 Redirection en cours...</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="countdown" id="countdown">Redirection automatique dans <span id="timer">3</span> secondes...</div>
+            <p class="subtitle">Vous allez être redirigé vers Orange Money pour finaliser votre paiement.</p>
+        </div>
+
+        <!-- Contenu principal du checkout -->
+        <div class="checkout-content" id="checkoutContent">
+            <!-- En-tête -->
+            <div class="header">
+                <div class="logo">OM</div>
+                <h1 class="title">🟠 Paiement Orange Money</h1>
+                <p class="subtitle">Paiement sécurisé via Orange Money Guinée</p>
+            </div>
+
+            <!-- Alert d'erreur (masqué par défaut) -->
+            <div class="alert alert-error hidden" id="errorAlert"></div>
+
+            <!-- Résumé de commande -->
+            <div class="order-summary">
+                <h3>📋 Résumé de la commande</h3>
+                <div class="order-item">
+                    <span class="label">Service :</span>
+                    <span class="value" id="serviceDesc">Dhru Fusion Pro</span>
+                </div>
+                <div class="order-item">
+                    <span class="label">Montant USD :</span>
+                    <span class="value">$<span id="amountUsd">--</span></span>
+                </div>
+                <div class="order-item">
+                    <span class="label">Taux de change :</span>
+                    <span class="value">1 USD = 8,650 GNF</span>
+                </div>
+                <div class="order-item">
+                    <span class="label">Total à payer :</span>
+                    <span class="value"><span id="amountGnf">--</span> GNF</span>
+                </div>
+                <div class="order-item">
+                    <span class="label">Commande :</span>
+                    <span class="value">#<span id="orderId">--</span></span>
+                </div>
+            </div>
+
+            <!-- Méthodes de paiement -->
+            <div class="payment-section">
+                <h3>💳 Méthode de paiement</h3>
+                <div class="payment-method selected" data-method="orange_money">
+                    <div class="payment-icon">OM</div>
+                    <div class="payment-details">
+                        <h4>Orange Money</h4>
+                        <p>Paiement mobile instantané et sécurisé</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire avec target="_top" pour sortir de l'iframe -->
+            <!-- Ce formulaire est utilisé pour la redirection finale si nécessaire -->
+            <form id="paymentForm" method="GET" target="_top" style="display: none;">
+                <input type="hidden" name="amount" id="formAmount">
+                <input type="hidden" name="custom_id" id="formCustomId">
+                <input type="hidden" name="description" id="formDescription">
+                <input type="hidden" name="customer_name" id="formCustomerName">
+                <input type="hidden" name="customer_email" id="formCustomerEmail">
+                <input type="hidden" name="success_url" id="formSuccessUrl">
+                <input type="hidden" name="fail_url" id="formFailUrl">
+            </form>
+
+            <!-- Bouton de paiement -->
+            <button class="checkout-btn" id="payBtn" onclick="processPayment()">
+                <span id="btnText">🚀 Procéder au paiement</span>
+            </button>
+
+            <!-- Section de sécurité -->
+            <div class="security-section">
+                <h4 class="security-title">🛡️ Paiement 100% sécurisé</h4>
+                <p style="text-align: center; color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+                    Vos informations sont protégées par Orange Money avec un chiffrement de niveau bancaire.
+                </p>
+                <div class="security-badges">
+                    <div class="security-badge">Chiffrement SSL 256-bit</div>
+                    <div class="security-badge">Conforme PCI DSS</div>
+                    <div class="security-badge">Réglementé BCRG</div>
+                    <div class="security-badge">Support 24h/7j</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let paymentData = {};
+        let countdownTimer = null;
+        let finalRedirectUrl = ''; // Renommé pour éviter la confusion avec la variable locale dans processPayment
+
+        // Clé API pour l'appel au backend (doit correspondre à celle dans api_keys.php)
+        const API_KEY = '8a35d9c4e2ccbd484cee94517806624c741cde76659a52d356f1a187f27d2c6a';
+        const EXCHANGE_RATE = 8650; // Taux de change 1 USD = 8,650 GNF
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎯 Orange Money Checkout initialisé');
+            loadPaymentData();
+            updateOrderSummary();
+            trackCheckoutView();
+        });
+
+        // Charger les données de paiement
+        function loadPaymentData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const storedData = sessionStorage.getItem('dhru_payment_data');
+
+            // Priorité 1: Données passées via postMessage (si dans un iframe)
+            // Priorité 2: Données stockées en sessionStorage
+            // Priorité 3: Données des paramètres URL
+            // Priorité 4: Données par défaut
+
+            if (window.parent && window.parent.dhruPaymentData) {
+                paymentData = window.parent.dhruPaymentData;
+            } else if (storedData) {
+                try {
+                    paymentData = JSON.parse(storedData);
+                } catch (e) {
+                    console.error("Erreur de parsing sessionStorage:", e);
+                    sessionStorage.removeItem('dhru_payment_data'); // Nettoyer les données corrompues
+                    paymentData = {}; // Utiliser des données vides pour le fallback
+                }
+            } else {
+                paymentData = {
+                    amount: urlParams.get('amount') || '1.00',
+                    custom_id: urlParams.get('custom_id') || Date.now().toString(),
+                    description: urlParams.get('description') || 'Service Dhru Fusion Pro',
+                    customer_name: urlParams.get('customer_name') || 'Client',
+                    customer_email: urlParams.get('customer_email') || 'client@example.com',
+                    success_url: urlParams.get('success_url') || window.location.origin + '/payment-success',
+                    fail_url: urlParams.get('fail_url') || window.location.origin + '/payment-fail'
+                };
+            }
+
+            // Assurer que les URLs sont absolues
+            if (paymentData.success_url && !paymentData.success_url.startsWith('http')) {
+                paymentData.success_url = window.location.origin + paymentData.success_url;
+            }
+            if (paymentData.fail_url && !paymentData.fail_url.startsWith('http')) {
+                paymentData.fail_url = window.location.origin + paymentData.fail_url;
+            }
+
+            console.log('💰 Données de paiement chargées:', paymentData);
+        }
+
+        // Mettre à jour le résumé de commande
+        function updateOrderSummary() {
+            const amountUsd = parseFloat(paymentData.amount || 0);
+            const amountGnf = Math.round(amountUsd * EXCHANGE_RATE);
+
+            document.getElementById('amountUsd').textContent = amountUsd.toFixed(2);
+            document.getElementById('amountGnf').textContent = amountGnf.toLocaleString('fr-GN'); // Formatage localisé
+            document.getElementById('orderId').textContent = paymentData.custom_id || '--';
+            document.getElementById('serviceDesc').textContent = paymentData.description || 'Dhru Fusion Pro';
+
+            // Remplir le formulaire caché pour la redirection finale
+            document.getElementById('formAmount').value = paymentData.amount;
+            document.getElementById('formCustomId').value = paymentData.custom_id;
+            document.getElementById('formDescription').value = paymentData.description;
+            document.getElementById('formCustomerName').value = paymentData.customer_name;
+            document.getElementById('formCustomerEmail').value = paymentData.customer_email;
+            document.getElementById('formSuccessUrl').value = paymentData.success_url;
+            document.getElementById('formFailUrl').value = paymentData.fail_url;
+        }
+
+        // Traitement du paiement
+        async function processPayment() {
+            const payBtn = document.getElementById('payBtn');
+            const btnText = document.getElementById('btnText');
+            const errorAlert = document.getElementById('errorAlert');
+
+            // Masquer les erreurs précédentes
+            errorAlert.classList.add('hidden');
+
+            // Désactiver le bouton
+            payBtn.disabled = true;
+            btnText.innerHTML = '<span class="loading-spinner"></span>Traitement...';
+
+            try {
+                console.log('🚀 Début du processus de paiement...');
+                trackPaymentInitiation();
+
+                // Appel à l'API Orange Money via le backend
+                const response = await fetch('/orange_money/index.php?action=create_order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Api-Key': API_KEY // Utilisation de la clé API définie
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.json().catch(() => ({ message: `Erreur HTTP: ${response.status}` }));
+                    throw new Error(errorBody.message || `Erreur HTTP: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log("Réponse du backend (create_order):", result);
+
+                if (result.status === 'success' && result.url) {
+                    finalRedirectUrl = result.url; // Stocker l'URL de redirection
+                    // Afficher l'état de chargement avec countdown
+                    showLoadingState();
+                } else {
+                    throw new Error(result.message || 'Erreur lors de la création du paiement.');
+                }
+
+            } catch (error) {
+                console.error('❌ Erreur:', error);
+                trackPaymentError(error.message);
+
+                // Afficher l'erreur
+                showError(error.message);
+
+                // Restaurer le bouton
+                payBtn.disabled = false;
+                btnText.textContent = '🚀 Procéder au paiement';
+            }
+        }
+
+        // Afficher l'état de chargement avec redirection automatique
+        function showLoadingState() {
+            const loadingState = document.getElementById('loadingState');
+            const checkoutContent = document.getElementById('checkoutContent');
+            const progressFill = document.getElementById('progressFill');
+            const timerElement = document.getElementById('timer');
+
+            // Afficher l'état de chargement
+            loadingState.classList.remove('hidden');
+            checkoutContent.style.display = 'none';
+
+            let countdown = 3;
+            let progress = 0;
+
+            countdownTimer = setInterval(function() {
+                // Mettre à jour le countdown
+                timerElement.textContent = countdown;
+
+                // Mettre à jour la barre de progression
+                progress += (100 / 3); // 100% en 3 secondes
+                progressFill.style.width = progress + '%';
+
+                if (countdown <= 0) {
+                    clearInterval(countdownTimer);
+
+                    console.log('🎯 Redirection finale vers Orange Money:', finalRedirectUrl);
+
+                    // Méthode 1: Redirection via window.top.location.href (préférable pour sortir d'un iframe)
+                    try {
+                        if (window.top && window.top !== window) { // Si nous sommes dans un iframe
+                            window.top.location.href = finalRedirectUrl;
+                        } else { // Si nous sommes la fenêtre principale
+                            window.location.href = finalRedirectUrl;
+                        }
+                    } catch (e) {
+                        // En cas d'erreur (ex: Same-Origin Policy pour window.top), utiliser window.location.href
+                        console.warn("Impossible d'accéder à window.top. Redirection via window.location.href", e);
+                        window.location.href = finalRedirectUrl;
+                    }
+
+                    // Fallback: Soumettre le formulaire avec target="_top" si la redirection JS échoue
+                    // Cela est moins fiable car le navigateur peut bloquer la soumission automatique
+                    setTimeout(function() {
+                        const form = document.getElementById('paymentForm');
+                        form.action = finalRedirectUrl;
+                        form.submit();
+                    }, 1000); // Donner un peu de temps à la redirection JS
+
+                } else {
+                    countdown--;
+                }
+            }, 1000);
+        }
+
+        // Afficher une erreur
+        function showError(message) {
+            const errorAlert = document.getElementById('errorAlert');
+            errorAlert.textContent = '❌ ' + message;
+            errorAlert.classList.remove('hidden');
+
+            // Scroll vers l'erreur
+            errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Fonctions de tracking (à adapter selon vos analytics)
+        function trackCheckoutView() {
+            console.log('🔍 Checkout view tracked');
+            // Ajoutez ici votre code de tracking (Google Analytics, Facebook Pixel, etc.)
+        }
+
+        function trackPaymentInitiation() {
+            console.log('🚀 Payment initiation tracked');
+            // Tracking de l'initiation du paiement
+        }
+
+        function trackPaymentSuccess() {
+            console.log('✅ Payment success tracked');
+            // Tracking du succès
+        }
+
+        function trackPaymentError(error) {
+            console.log('❌ Payment error tracked:', error);
+            // Tracking des erreurs
+        }
+
+        // Gestion des messages PostMessage (pour la communication avec un parent si dans un iframe)
+        window.addEventListener('message', function(event) {
+            console.log('📨 Message reçu:', event.data);
+
+            // Vérifier l'origine du message pour des raisons de sécurité si possible
+            // if (event.origin !== "https://votre-domaine-parent.com") return;
+
+            if (event.data && event.data.type === 'DHRU_PAYMENT_DATA') {
+                paymentData = event.data.data;
+                updateOrderSummary();
+                console.log('💰 Données mises à jour via PostMessage');
+            }
+        });
+
+        // Notifier le parent que le checkout est prêt (si dans un iframe)
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({
+                type: 'CHECKOUT_READY',
+                url: window.location.href
+            }, '*'); // Utiliser '*' si l'origine du parent n'est pas connue ou si elle peut varier
+            console.log('📤 Notification parent: checkout prêt');
+        }
+
+        // Nettoyage en cas de fermeture
+        window.addEventListener('beforeunload', function() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+            }
+        });
+    </script>
+</body>
+</html>

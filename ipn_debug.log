@@ -1,0 +1,5 @@
+[15-Jul-2025 08:29:39 America/Boise] ===== 📥 RÉCEPTION IPN ORANGE MONEY =====
+[15-Jul-2025 08:29:39 America/Boise] Méthode HTTP: POST
+[15-Jul-2025 08:29:39 America/Boise] IP appelante: 44.211.115.90
+[15-Jul-2025 08:29:39 America/Boise] 📦 Raw input: {"amount":"1.00","currency_code":"USD","description":"#INV-15-07-2025-21643","customer_name":"lims","customer_email":"mdalimoubah98@gmail.com","custom_id":21643,"ipn_url":"https:\/\/gsmeasytech.dhrufusion.in\/api\/system\/v1\/ipn?gateway_id=bb2492c5-db6d-41e7-b000-e08972f711c7","success_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=88d337b7-018c-453d-aea0-a34cf48f285c&payment=success","fail_url":"https:\/\/gsmeasytech.dhrufusion.net\/view-retail-order\/?id=88d337b7-018c-453d-aea0-a34cf48f285c&payment=fail"}
+[15-Jul-2025 08:29:39 America/Boise] ℹ️ Payload initial détecté (pré-notification), ignoré pour l'instant.
